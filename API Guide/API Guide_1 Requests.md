@@ -1,3 +1,4 @@
+												Translated by Emma LIU
 #Requests#
 
 
@@ -5,8 +6,6 @@ REST架构的Request类扩展了标准的HttpRequest，支持REST架构的更为
 
 --
 ###Request parsing 请求解析
-
-REST framework's Request objects provide flexible request parsing that allows you to treat requests with JSON data or other media types in the same way that you would normally deal with form data.
 
 REST架构的Request对象提供了非常灵活的请求解析功能，它允许你使用JSON或其他类型的数据来提供requests请求（与form类型的数据处理方式相同）
 
@@ -68,15 +67,49 @@ REST架构提供了灵活的，针对每一个请求的校验，让你可以：
 
 ####.auth
 
-<font color=#FF0000>`request.auth`</font>返回任何额外的验证内容。 The exact behavior of <font color=#FF0000>`request.auth`</font> depends on the authentication policy being used, but it may typically be an instance of the token that the request was authenticated against.
+<font color=#FF0000>`request.auth`</font>返回任何额外的验证内容。<font color=#FF0000>`request.auth`</font>的具体行为由当前使用的验证方式决定，不过通常它返回一个通过验证的token实例。
 
-If the request is unauthenticated, or if no additional context is present, the default value of <font color=#FF0000>`request.auth`</font> is <font color=#FF0000>`None`</font>.
+如果请求未通过验证，或者没有额外的内容，那么<font color=#FF0000>`request.auth`</font>是<font color=#FF0000>`None`</font>.
 
 更多信息参见<font color=#FF0000>校验文档</font>。
 
 ####.authenticators
-The APIView class or @api_view decorator will ensure that this property is automatically set to a list of Authentication instances, based on the authentication_classes set on the view or based on the DEFAULT_AUTHENTICATORS setting.
 
-You won't typically need to access this property.
+根据view里设定的 <font color=#FF0000>`authentication_classes`</font>或者setting里的<font color=#FF0000>`DEFAULT_AUTHENTICATORS`</font>值，<font color=#FF0000>`APIView`</font>类或者<font color=#FF0000>`@api_view`</font>装饰器会将这一属性自动设置到一列<font color=#FF0000>`Authentication`</font>实例上。
+
+一般来讲你不需要访问这一属性。
 
 --
+
+###Browser enhancements浏览器增强
+
+REST架构支持一些浏览器增强功能比如基于浏览器的<font color=#FF0000>`PUT`</font>, <font color=#FF0000>`PATCH`</font>, <font color=#FF0000>`DELETE`</font> forms。
+
+####.method
+<font color=#FF0000>`request.method`</font>返回request所使用的大写字符串格式的HTTP方法。
+
+同时也支持基于浏览器的<font color=#FF0000>`PUT`</font>, <font color=#FF0000>`PATCH`</font> and <font color=#FF0000>`DELETE`</font> forms。
+
+更多信息参见<font color=#FF0000>浏览器增强文档</font>。
+
+####.content_type
+如果HTTP请求正文包含媒体类型，那么<font color=#FF0000>`request.content_type`</font>表示媒体类型的字符串对象；如果未提供媒体类型，那么它返回一个空的字符串。
+
+因为你可以依赖REST架构的默认request解析功能，所以通常你不需要直接访问request的内容类型。
+
+如果你需要访问request的内容类型，相比于<font color=#FF0000> `request.META.get('HTTP_CONTENT_TYPE')`</font>，你应该使用<font color=#FF0000>`.content_type`</font>属性，因为它支持基于浏览器的非form类型的内容。
+
+更多信息参见<font color=#FF0000>浏览器增强文档</font>。
+
+####.stream
+<font color=#FF0000> `request.stream`</font>返回表示请求正文内容的流。
+
+因为你可以依赖REST架构的默认request解析功能，通常你不需要直接访问request的内容。
+
+--
+
+###Standard HttpRequest attributes 标准HttpRequest属性
+
+由于REST架构的<font color=#FF0000>`Request`</font>扩展了Django的<font color=#FF0000> `HttpRequest`</font>，HttpRequest所有其他的标准属性和方法Request都适用。例如<font color=#FF0000> `request.META`</font>和<font color=#FF0000> `request.session`</font>字典都可用。
+
+需要注意的是由于应用原因，<font color=#FF0000> `Request`</font>并不继承自 <font color=#FF0000> `HttpRequest`</font>类，而是使用复合(composition)扩展了该类。
