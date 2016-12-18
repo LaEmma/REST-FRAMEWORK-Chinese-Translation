@@ -1,6 +1,5 @@
 												Translated by Emma LIU
 #Responses#
-<font color=#FF0000>`  `</font>
 
 REST架构提供了一个Response类，允许你根据客户端请求来返回可以被渲染成多种类型的内容。 
 
@@ -41,9 +40,9 @@ REST架构提供了一个Response类，允许你根据客户端请求来返回�
 HTTP response的数字状态码。
 
 ####.content
-response里渲染过的内容。访问<font color=#FF0000>`.content`</font>之前需要调用.render()`</font>方法。
+response里渲染过的内容。访问<font color=#FF0000>`.content`</font>之前需要调用<font color=#FF0000>`.render()`</font>方法。
 
-####.template\_name
+####.template_name
 <font color=#FF0000>`.template_name`</font>，如果有的话。只有在选定了<font color=#FF0000>`HTMLRender`</font>或者其他定制的模板渲染器时才需要模板名称。
 
 ####.accepted_renderer
@@ -64,14 +63,16 @@ response里渲染过的内容。访问<font color=#FF0000>`.content`</font>之�
 --
 
 ###Standard HttpResponse attributes 标准HttpResponse属性
-<font color=#FF0000>`Response`</font>类扩展SimpleTemplateResponse`</font>，所有一般的属性和方法在response都可使用。例如你可以用标准方式这是headers:
+<font color=#FF0000>`Response`</font>类扩展<font color=#FF0000>`SimpleTemplateResponse`</font>，所有一般的属性和方法在response都可使用。例如你可以用标准方式这是headers:
 
 ```
 response = Response()
 response['Cache-Control'] = 'no-cache'
 ```
+
 ####.render()
-**Signature:** <font color=#FF0000>`.render()`</font>
+**Signature:**  <font color=#FF0000>`.render()`</font>
+
 与其他<font color=#FF0000>`TemplateResponse`</font>类似，这个方法用来渲染reponse里序列化了的数据到最终的response内容里。当调用<font color=#FF0000>`.render()`</font>方法，<font color=#FF0000>`accepted_renderer`</font>实例里的<font color=#FF0000>`.render(data, accepted_media_type, renderer_context)`</font>方法返回的结果就是response的内容。
 
 一般来说你不需要自己来调用<font color=#FF0000>`.render()`</font>，它是在Django标准的response周期中被自动处理的。
